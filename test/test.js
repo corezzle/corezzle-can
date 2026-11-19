@@ -1,6 +1,6 @@
 // node test/test.js — kart protokolü ve OBD çözümleri (donanımsız)
 const assert = require('assert');
-const K = require('../src/kart.js');
+const K = require('../src/board.js');
 const O = require('../src/obd.js');
 
 let n = 0;

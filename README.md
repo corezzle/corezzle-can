@@ -73,12 +73,12 @@ can dump | can stats | can clear
 ```
 src/main.js       Electron ana süreç: pencere, Web Serial izni, dosya kaydetme
 src/preload.js    ekran ↔ ana süreç köprüsü
-src/kart.js       kartla konuşma: satır ayrıştırma, komutlar, akış
-src/sahte-kart.js demo modu: kartı taklit eden sahte port
+src/board.js      kartla konuşma: satır ayrıştırma, komutlar, akış
+src/fake-board.js demo modu: kartı taklit eden sahte port
 src/obd.js        OBD-II PID tablosu ve cevap çözümü
-src/uygulama.js   arayüz mantığı
+src/app.js        arayüz mantığı
 src/index.html    arayüz
-src/sayfa.css     görünüm
+src/style.css     görünüm
 test/test.js      protokol testleri (node)
 ```
 

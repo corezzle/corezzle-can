@@ -1,5 +1,5 @@
 /*
- * Corezzle CAN — ekran mantığı. Kartla konuşma kart.js'te, OBD çözümü obd.js'te.
+ * Corezzle CAN — ekran mantığı. Kartla konuşma board.js'te, OBD çözümü obd.js'te.
  * Frame'ler saniyede yüzlerce gelir; tablo DOM'u 10 Hz'de topluca yenilenir.
  */
 (function () {

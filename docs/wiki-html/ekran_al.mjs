@@ -3,7 +3,7 @@
 import { spawn } from 'node:child_process';
 import { writeFileSync, readFileSync } from 'node:fs';
 const CEVIRI = readFileSync(new URL('./ekran_ceviri.js', import.meta.url), 'utf8'); // görseller İngilizce: çekim anında TR→EN
-const OUT = process.argv[2]; const URL_ = 'file:///Users/cekirdek/Desktop/corezzle-can/src/index.html';
+const OUT = process.argv[2]; const URL_ = new URL('../../src/index.html', import.meta.url).href; // depo içindeki arayüz, konumdan bağımsız
 const chrome = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', ['--headless=new', '--remote-debugging-port=9333', '--window-size=1280,860', '--hide-scrollbars', '--user-data-dir=' + process.argv[3], '--no-first-run', '--allow-file-access-from-files', 'about:blank'], { stdio: 'ignore' });
 const sl = ms => new Promise(r => setTimeout(r, ms));
 let ws, id = 0, bekleyen = {};

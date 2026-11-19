@@ -6,8 +6,9 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 
 const KOK = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', 'panel-icerik');
-const MD_LIB = process.env.MD_IT || path.join(process.env.HOME, 'Desktop/web-design/design-frontend/node_modules/markdown-it');
 const require = createRequire(import.meta.url);
+const MD_LIB = process.env.MD_IT || 'markdown-it'; // deponun node_modules'ü ya da MD_IT=<markdown-it klasörü>
+try { require.resolve(MD_LIB); } catch { console.error('markdown-it bulunamadı: depoda `npm install --no-save markdown-it` çalıştırın ya da MD_IT=<markdown-it klasörü> verin.'); process.exit(1); }
 const MarkdownIt = require(MD_LIB);
 
 const TR = [

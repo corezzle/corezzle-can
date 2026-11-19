@@ -1,6 +1,6 @@
 # Panele giriş kılavuzu — Corezzle CAN dökümanı
 
-Bu klasör corezzle.com Wiki'sine (design-frontend paneli, içerik türü "döküman") girilecek **tek bir dökümanın** bölümleridir.
+Bu klasör corezzle.com Wiki'sine (içerik türü "döküman") girilecek **tek bir dökümanın** bölümleridir.
 Wear ve Drive dökümanlarıyla aynı düzen: her `NN-*.md` dosyası panelde bir **başlık** (bölüm), içerik Markdown + satır içi stilli HTML.
 
 ## Döküman (üst kayıt) alanları — öneri
@@ -60,7 +60,7 @@ node docs/wiki-html/birlestir.mjs
 ```
 
 PDF için ardından: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer --print-to-pdf=docs/panel-icerik/Corezzle-CAN-Wiki.pdf file://$PWD/docs/panel-icerik/Corezzle-CAN-Wiki.html`
-(birleştirici panelin kendi markdown-it ayarlarını ve HTML süzgecini kullanır; `MD_IT` ortam değişkeniyle markdown-it yolu verilebilir).
+(birleştirici panelin kendi markdown-it ayarlarını ve HTML süzgecini kullanır; markdown-it depoda yoksa `npm install --no-save markdown-it` ya da `MD_IT=<markdown-it klasörü>`).
 
 ## Görseller nasıl üretildi (yeniden üretmek için)
 

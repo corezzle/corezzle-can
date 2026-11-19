@@ -1,10 +1,10 @@
 # Corezzle CAN
 
-> 📖 NarRTOS kartı üzerinden aracın CAN hattını **canlı dinleyen, kaydeden, frame gönderen ve OBD-II sorgulayan**
+> 📖 NAR kartı üzerinden aracın CAN hattını **canlı dinleyen, kaydeden, frame gönderen ve OBD-II sorgulayan**
 > masaüstü uygulaması (macOS, Windows, Linux). Kart tarafı açık kaynak
 > [NarRTOS Wear](https://github.com/corezzle/NarRTOS-Wear) firmware'idir (`nar_esp32s3` derlemesi).
 
-*Corezzle CAN is a desktop tool (Electron) that turns a NarRTOS board with a CAN transceiver into a live CAN bus
+*Corezzle CAN is a desktop tool (Electron) that turns a NAR board with a CAN transceiver into a live CAN bus
 monitor: per-ID live table, raw stream, CSV recording, automatic bitrate detection, raw frame transmit and OBD-II
 queries with decoded values. The board stays in listen-only mode until you explicitly enable transmission.*
 
@@ -28,7 +28,7 @@ queries with decoded values. The board stays in listen-only mode until you expli
 
 ## Donanım
 
-- NarRTOS kartı (ESP32-S3) + 3,3 V CAN alıcı-verici (SN65HVD230, TJA1051T/3 vb.). 5 V çipler (TJA1050, MCP2551) uygun değildir.
+- NAR kartı (ESP32-S3) + 3,3 V CAN alıcı-verici (SN65HVD230, TJA1051T/3 vb.). 5 V çipler (TJA1050, MCP2551) uygun değildir.
 - Kart ↔ alıcı-verici: 3,3 V, GND, **TXD → GPIO4**, **RXD → GPIO6**. Alıcı-vericide RS/STBY pini varsa GND'ye.
 - Alıcı-verici ↔ araç (OBD-II soketi): **CANH → pin 6**, **CANL → pin 14**, **GND → pin 4/5**. Alıcı-verici modülündeki 120 Ω sonlandırma devre dışı olmalı.
 - Frame gelmiyorsa en sık sebep CANH/CANL'nin ters olması ya da GND'nin bağlanmamasıdır. Binek araçlarda hız çoğunlukla 500 kbit/s, kamyon/J1939'da 250.
@@ -81,6 +81,13 @@ src/index.html    arayüz
 src/style.css     görünüm
 test/test.js      protokol testleri (node)
 ```
+
+## Belgeler
+
+Kullanım belgesi (bağlantı şeması, hız bulma, güvenlik kilidi, OBD-II, kayıt, sorun giderme; TR ve EN) `docs/panel-icerik/`
+altında bölüm bölüm durur; corezzle.com Wiki'sine bu bölümlerden girilir. Görseller `docs/panel-icerik/gorseller/`,
+üretim betikleri `docs/wiki-html/` (ekran görüntüleri: `ekran_al.mjs`, bağlantı şeması: `sema_uret.py`, bölüm metinleri: `bolumler_tr.py` / `bolumler_en.py`, tek dosya birleştirme: `birlestir.mjs`).
+Tamamı tek dosyada okumak için: [`docs/panel-icerik/Corezzle-CAN-Wiki.md`](docs/panel-icerik/Corezzle-CAN-Wiki.md) (ayrıca aynı adla `.html` ve `.pdf`).
 
 ## Üçüncü taraf bileşenler
 

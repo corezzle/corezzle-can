@@ -2,7 +2,7 @@
   "name": "corezzle-can",
   "productName": "Corezzle CAN",
   "version": "0.1.0",
-  "description": "NarRTOS kartı üzerinden araç CAN hattını canlı dinleme, kayıt, frame gönderme ve OBD-II sorgulama masaüstü aracı",
+  "description": "NAR kartı üzerinden araç CAN hattını canlı dinleme, kayıt, frame gönderme ve OBD-II sorgulama masaüstü aracı",
   "main": "src/main.js",
   "scripts": {
     "start": "electron-forge start",

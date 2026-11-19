@@ -1,0 +1,81 @@
+/* Corezzle CAN — arayüz. Corezzle Ölçüm ile aynı palet. */
+:root {
+  --marka:#004c6a; --marka-acik:#00668a; --vurgu:#00a9bb; --vurgu-yumusak:#e0f5f8; --vurgu-yazi:#007d8c;
+  --zemin:#f1f4f6; --kart:#ffffff; --kart2:#f5f8fa; --ink:#0c2733; --ink2:#55707d; --ink3:#8ba1ac; --cizgi:#e0e7eb;
+  --uyari:#8a5a00; --uyari-zemin:#fff6dd; --uyari-cizgi:#f1dca0; --kotu:#d04545; --iyi:#12925f; --iyi-zemin:#e6f6ee;
+  --degisti:#fff0b3; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --golge:0 1px 2px rgba(12,39,51,.05), 0 10px 28px rgba(12,39,51,.07);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --marka:#0a86a6; --marka-acik:#35d0de; --vurgu:#35d0de; --vurgu-yumusak:#0f3b47; --vurgu-yazi:#5fe0ec;
+    --zemin:#06171e; --kart:#0c2631; --kart2:#10303d; --ink:#e8f3f6; --ink2:#9db9c4; --ink3:#6c8b97; --cizgi:#1a4050;
+    --uyari:#f2cf7a; --uyari-zemin:#2a230f; --uyari-cizgi:#4f431c; --kotu:#ff8080; --iyi:#4ade9a; --iyi-zemin:#0f3a2a;
+    --degisti:#4a3f10; --golge:0 1px 2px rgba(0,0,0,.35), 0 10px 28px rgba(0,0,0,.28);
+  }
+}
+* { box-sizing:border-box; }
+[hidden] { display:none !important; }
+html,body { height:100%; margin:0; }
+body { font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:var(--zemin); display:flex; flex-direction:column; }
+button { font:inherit; padding:7px 14px; border-radius:8px; border:1px solid var(--cizgi); background:var(--kart); color:var(--ink); cursor:pointer; }
+button:hover { border-color:var(--vurgu); }
+button:disabled { opacity:.5; cursor:default; }
+button.birincil { background:var(--marka); border-color:var(--marka); color:#fff; }
+button.birincil:hover { background:var(--marka-acik); }
+input,select { font:inherit; padding:6px 9px; border-radius:8px; border:1px solid var(--cizgi); background:var(--kart); color:var(--ink); }
+input:focus,select:focus { outline:2px solid var(--vurgu-yumusak); border-color:var(--vurgu); }
+code { font-family:var(--mono); font-size:12.5px; background:var(--kart2); padding:1px 5px; border-radius:4px; }
+
+.ust { display:flex; align-items:center; gap:18px; padding:10px 18px; background:var(--kart); border-bottom:1px solid var(--cizgi); }
+.marka { display:flex; align-items:center; gap:10px; }
+.marka .logo { width:34px; height:34px; border-radius:9px; background:var(--marka); color:#fff; display:grid; place-items:center; font-weight:800; }
+.marka small { display:block; color:var(--ink3); font-size:11px; }
+.durum { display:flex; gap:10px; align-items:center; flex:1; flex-wrap:wrap; }
+.rozet { padding:3px 10px; border-radius:999px; background:var(--kart2); border:1px solid var(--cizgi); font-size:12.5px; color:var(--ink2); }
+.rozet.ok { background:var(--iyi-zemin); color:var(--iyi); border-color:transparent; }
+.rozet.mod.tx { background:var(--uyari-zemin); color:var(--uyari); border-color:var(--uyari-cizgi); }
+.sayac { font-size:12.5px; color:var(--ink2); }
+.sayac b { color:var(--ink); font-variant-numeric:tabular-nums; }
+.sayac.uyari b { color:var(--kotu); }
+.eylem { display:flex; gap:8px; }
+
+.sekmeler { display:flex; gap:4px; padding:8px 18px 0; border-bottom:1px solid var(--cizgi); background:var(--kart); }
+.sekmeler button { border:none; border-bottom:2px solid transparent; border-radius:0; background:none; padding:8px 14px; color:var(--ink2); }
+.sekmeler button.aktif { color:var(--vurgu-yazi); border-bottom-color:var(--vurgu); font-weight:600; }
+
+main { flex:1; overflow:auto; padding:14px 18px; }
+.sekme { display:none; }
+.sekme.aktif { display:block; }
+.arac { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px; }
+.arac input:not([type=checkbox]):not([type=number]) { min-width:220px; }
+.onay { display:inline-flex; align-items:center; gap:6px; color:var(--ink2); }
+.not { color:var(--ink2); font-size:12.5px; }
+ul.not { padding-left:18px; }
+.satir { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:8px 0; }
+.satir.sag { justify-content:flex-end; }
+.kart { background:var(--kart); border:1px solid var(--cizgi); border-radius:12px; padding:14px 16px; margin-bottom:14px; box-shadow:var(--golge); }
+.kart h3 { margin:0 0 8px; font-size:15px; }
+.uyari-kart { background:var(--uyari-zemin); border-color:var(--uyari-cizgi); color:var(--uyari); }
+.iyi-kart { background:var(--iyi-zemin); border-color:transparent; color:var(--iyi); }
+.iki { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media (max-width:1000px) { .iki { grid-template-columns:1fr; } }
+
+.tablo-kap { background:var(--kart); border:1px solid var(--cizgi); border-radius:12px; overflow:auto; max-height:calc(100vh - 230px); }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th { position:sticky; top:0; background:var(--kart2); text-align:left; padding:8px 10px; font-weight:600; color:var(--ink2); border-bottom:1px solid var(--cizgi); }
+td { padding:6px 10px; border-bottom:1px solid var(--cizgi); font-variant-numeric:tabular-nums; white-space:nowrap; }
+td.mono, .mono { font-family:var(--mono); font-size:12.5px; }
+td .b { display:inline-block; min-width:2.2em; text-align:center; padding:1px 3px; border-radius:4px; }
+td .b.d { background:var(--degisti); }
+.bos { padding:30px; text-align:center; color:var(--ink3); margin:0; }
+.log { background:var(--kart); border:1px solid var(--cizgi); border-radius:12px; padding:10px 12px; font-family:var(--mono); font-size:12px; line-height:1.4; height:calc(100vh - 230px); overflow:auto; white-space:pre-wrap; margin:0; }
+.log.kisa { height:auto; max-height:260px; min-height:60px; }
+.alt { padding:6px 18px; border-top:1px solid var(--cizgi); background:var(--kart); color:var(--ink2); font-size:12.5px; min-height:30px; }
+.alt .kotu { color:var(--kotu); }
+
+.kaplama { position:fixed; inset:0; background:rgba(0,0,0,.35); display:grid; place-items:center; z-index:10; }
+.kutu { background:var(--kart); border-radius:14px; padding:18px 20px; width:460px; box-shadow:var(--golge); }
+.kutu h3 { margin:0 0 6px; }
+#seri-liste button { display:block; width:100%; text-align:left; margin:6px 0; padding:10px 12px; }
+#seri-liste button small { display:block; color:var(--ink3); }

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+<title>Corezzle CAN</title>
+<link rel="stylesheet" href="sayfa.css">
+</head>
+<body>
+<header class="ust">
+  <div class="marka"><span class="logo">C</span><div><b>Corezzle CAN</b><small id="surum"></small></div></div>
+  <div class="durum">
+    <span class="rozet" id="r-baglanti">bağlı değil</span>
+    <span class="rozet" id="r-hiz">— kbit/s</span>
+    <span class="rozet mod" id="r-mod">—</span>
+    <span class="sayac" title="toplam alınan frame">rx <b id="s-rx">0</b></span>
+    <span class="sayac" title="farklı kimlik">kimlik <b id="s-kimlik">0</b></span>
+    <span class="sayac" title="saniyedeki frame">hız <b id="s-fps">0</b>/s</span>
+    <span class="sayac uyari" id="s-hata" hidden>hat hatası <b id="s-hata-n">0</b></span>
+  </div>
+  <div class="eylem">
+    <button id="b-bagla" class="birincil">Karta bağlan</button>
+    <button id="b-demo" title="Donanım olmadan dene: yazılım içinde kartı taklit eden sahte hat">Demo (sahte kart)</button>
+    <button id="b-ayir" hidden>Ayır</button>
+  </div>
+</header>
+
+<div id="seri-sec" class="kaplama" hidden>
+  <div class="kutu">
+    <h3>Kart seçin</h3>
+    <p class="not">Listede kart yoksa USB kablosunu kontrol edin (veri taşıyan kablo olmalı).</p>
+    <div id="seri-liste"></div>
+    <div class="satir sag"><button id="seri-vazgec">Vazgeç</button></div>
+  </div>
+</div>
+
+<nav class="sekmeler">
+  <button data-sekme="canli" class="aktif">Canlı</button>
+  <button data-sekme="akis">Akış</button>
+  <button data-sekme="gonder">Gönder</button>
+  <button data-sekme="kayit">Kayıt</button>
+  <button data-sekme="ayar">Ayarlar</button>
+  <button data-sekme="konsol">Konsol</button>
+</nav>
+
+<main>
+  <!-- CANLI: kimlik başına son frame -->
+  <section id="sekme-canli" class="sekme aktif">
+    <div class="arac">
+      <input id="f-kimlik" placeholder="kimlik süz (örn. 208, 7E8)" spellcheck="false">
+      <label class="onay"><input type="checkbox" id="c-degisen"> yalnız değişenler</label>
+      <label class="onay"><input type="checkbox" id="c-ondalik"> baytları ondalık göster</label>
+      <button id="b-temizle">Tabloyu temizle</button>
+      <button id="b-duraklat">Duraklat</button>
+    </div>
+    <div class="tablo-kap">
+      <table id="t-canli">
+        <thead><tr><th>Kimlik</th><th>Tür</th><th>DLC</th><th>Veri (B0 … B7)</th><th>Sayı</th><th>Hz</th><th>Son</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="bos" id="canli-bos">Henüz frame yok. Bağlanın; hat canlıysa kimlikler burada akar. Frame gelmiyorsa <b>Ayarlar → Hızı bul</b>.</p>
+    </div>
+  </section>
+
+  <!-- AKIŞ: ham satırlar -->
+  <section id="sekme-akis" class="sekme">
+    <div class="arac">
+      <input id="f-akis" placeholder="süz (kimlik ya da bayt)" spellcheck="false">
+      <button id="b-akis-duraklat">Duraklat</button>
+      <button id="b-akis-temizle">Temizle</button>
+      <span class="not">Son 2000 satır tutulur; tamamı için Kayıt sekmesi.</span>
+    </div>
+    <pre id="akis" class="log"></pre>
+  </section>
+
+  <!-- GÖNDER -->
+  <section id="sekme-gonder" class="sekme">
+    <div class="kart uyari-kart" id="tx-kapali">
+      <b>Gönderim kapalı (listen-only).</b> Kart hatta görünmez; bu en güvenli durumdur. Frame göndermek ya da OBD sorgulamak için
+      önce hat hızının doğrulanmış olması gerekir (Canlı sekmesinde frame akıyor olmalı), sonra gönderimi açın.
+      <div class="satir"><button id="b-tx-ac" class="birincil">Gönderimi aç</button>
+      <label class="onay"><input type="checkbox" id="c-tx-zorla"> hız doğrulanmadan zorla (yalnız masa testi)</label></div>
+    </div>
+    <div class="kart iyi-kart" id="tx-acik" hidden>
+      <b>Gönderim açık (NORMAL mod).</b> Kart hattaki frame'leri onaylıyor ve gönderebiliyor. ACK alınamazsa kart kendini listen-only'ye alır.
+      <div class="satir"><button id="b-tx-kapat">Gönderimi kapat</button></div>
+    </div>
+
+    <div class="iki">
+      <div class="kart">
+        <h3>OBD-II sorgu</h3>
+        <div class="satir">
+          <select id="obd-pid"></select>
+          <button id="b-obd" class="birincil">Sorgula</button>
+          <label class="onay"><input type="checkbox" id="c-obd-tekrar"> her <input id="obd-aralik" type="number" value="1" min="0.2" step="0.2" style="width:4.5em"> sn tekrarla</label>
+        </div>
+        <div class="satir"><input id="obd-ozel" placeholder="özel: pid [mod] hex, örn. 0C 01" spellcheck="false"><button id="b-obd-ozel">Gönder</button></div>
+        <table id="t-obd"><thead><tr><th>Zaman</th><th>ECU</th><th>PID</th><th>Ad</th><th>Değer</th><th>Ham</th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="kart">
+        <h3>Ham frame gönder</h3>
+        <div class="satir"><label>Kimlik <input id="g-kimlik" value="7DF" spellcheck="false" style="width:7em"></label>
+          <label>Veri (hex) <input id="g-veri" value="02 01 0C 00 00 00 00 00" spellcheck="false" style="width:18em"></label></div>
+        <div class="satir"><button id="b-gonder" class="birincil">Bir kez gönder</button>
+          <label class="onay"><input type="checkbox" id="c-g-tekrar"> her <input id="g-aralik" type="number" value="100" min="20" step="10" style="width:5em"> ms tekrarla</label></div>
+        <p class="not">Kimlik 0x7FF'ten büyükse 29 bit (genişletilmiş) gönderilir. Araç hattına frame basmak sorumluluk ister; standart OBD-II sorguları (0x7DF) dışında ne gönderdiğinizi bildiğinizden emin olun.</p>
+        <pre id="g-sonuc" class="log kisa"></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- KAYIT -->
+  <section id="sekme-kayit" class="sekme">
+    <div class="kart">
+      <h3>Oturum kaydı</h3>
+      <div class="satir">
+        <button id="b-kayit" class="birincil">Kaydı başlat</button>
+        <span id="kayit-durum" class="not">kayıt kapalı</span>
+      </div>
+      <p class="not">Kayıt sırasında her frame bellekte tutulur (zaman, kimlik, veri). Durdurunca CSV olarak kaydedebilirsiniz.
+        Biçim: <code>zaman_ms,kimlik,ext,dlc,b0,...,b7</code> — Excel, Python ve SavvyCAN ile açılır.</p>
+      <div class="satir">
+        <button id="b-csv" disabled>CSV olarak kaydet</button>
+        <button id="b-kayit-sil" disabled>Kaydı at</button>
+        <span id="kayit-ozet" class="not"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- AYARLAR -->
+  <section id="sekme-ayar" class="sekme">
+    <div class="iki">
+      <div class="kart">
+        <h3>Hat hızı</h3>
+        <p class="not">Hız bilinmiyorsa <b>Hızı bul</b>: kart 500/250/125/1000 kbit/s'i sırayla, hatta görünmeden dinler; frame gelen hızı seçip kalıcı kaydeder (~20 sn).</p>
+        <div class="satir"><button id="b-tara" class="birincil">Hızı bul</button><span id="tara-sonuc" class="not"></span></div>
+        <div class="satir">
+          <label>Elle: <select id="hiz-sec"><option>125</option><option>250</option><option selected>500</option><option>1000</option></select> kbit/s</label>
+          <button id="b-hiz">Ayarla ve yeniden başlat</button>
+        </div>
+      </div>
+      <div class="kart">
+        <h3>Kart durumu</h3>
+        <pre id="durum" class="log kisa">—</pre>
+        <div class="satir"><button id="b-durum">Yenile</button><button id="b-reboot">Kartı yeniden başlat</button></div>
+      </div>
+    </div>
+    <div class="kart">
+      <h3>Bağlantı notları</h3>
+      <ul class="not">
+        <li>Kart ↔ transceiver: 3,3 V, GND, TXD → GPIO4, RXD → GPIO6. Transceiver ↔ araç: CANH (OBD pin 6), CANL (OBD pin 14), GND (OBD pin 4/5).</li>
+        <li>Hiç frame gelmiyorsa en sık sebep CANH/CANL'nin ters olması ya da GND'nin bağlanmamasıdır.</li>
+        <li>Her açılışta kart listen-only başlar; gönderim yalnız bu uygulamadan ve oturumluk açılır.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- KONSOL -->
+  <section id="sekme-konsol" class="sekme">
+    <div class="arac">
+      <input id="k-komut" placeholder="karta komut (örn. help, get can, can dump 20)" spellcheck="false">
+      <button id="b-k-gonder" class="birincil">Gönder</button>
+      <button id="b-k-temizle">Temizle</button>
+    </div>
+    <pre id="konsol" class="log"></pre>
+  </section>
+</main>
+
+<footer class="alt"><span id="mesaj"></span></footer>
+
+<script src="kart.js"></script>
+<script src="sahte-kart.js"></script>
+<script src="obd.js"></script>
+<script src="uygulama.js"></script>
+</body>
+</html>

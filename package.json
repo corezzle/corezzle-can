@@ -1,0 +1,27 @@
+{
+  "name": "corezzle-can",
+  "productName": "Corezzle CAN",
+  "version": "0.1.0",
+  "description": "NarRTOS kartı üzerinden araç CAN hattını canlı dinleme, kayıt, frame gönderme ve OBD-II sorgulama masaüstü aracı",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "test": "node test/test.js",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "license": "Apache-2.0",
+  "author": "Corezzle Electronics",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.1"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.5.0",
+    "@electron-forge/maker-dmg": "^7.5.0",
+    "@electron-forge/maker-squirrel": "^7.5.0",
+    "@electron-forge/maker-zip": "^7.5.0",
+    "@electron-forge/plugin-fuses": "^7.5.0",
+    "@electron/fuses": "^1.8.0",
+    "electron": "^33.2.0"
+  }
+}

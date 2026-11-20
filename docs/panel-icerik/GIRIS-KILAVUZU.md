@@ -50,7 +50,7 @@ Wear ve Drive dökümanlarıyla aynı düzen: her `NN-*.md` dosyası panelde bir
 - Kod blokları (``` ile) TR ve EN'de aynı; çevrilmedi (kart cevapları İngilizce-Türkçe karışık, olduğu gibi gösteriliyor).
 - 01'deki sayı kutuları ve kartlar tek satırlık HTML; yapıştırırken satır kırılmasın.
 - Döküman adresi panelde oluşunca (örn. `/document-content/corezzle-can-NN`) söyle: Wear dökümanındaki "Corezzle CAN ile Araç Hattını Dinleme" sayfası (embedded-wear-os `docs/panel-icerik/19-*.md`) ve corezzle-can README'si bu adrese bağlanacak.
-- 04 Hızlı başlangıç'taki indirme bağlantısı `github.com/corezzle/corezzle-can/releases/latest` adresine gider. Bu bölümü panele girmeden önce GitHub'da bir Release yayımlanmış olmalı (dosyalar: `Corezzle-CAN-Setup.exe`, `Corezzle-CAN.dmg`, `corezzle-can-linux-x64-<sürüm>.zip`; `npm run make` çıktıları). Release yoksa bağlantı boş sayfaya düşer. Release'i `.github/workflows/release.yml` üretir: `git tag v0.1.0 && git push github v0.1.0`, 10-15 dk sonra üç dosya Release'te.
+- 04 Hızlı başlangıç'taki indirme bağlantısı `github.com/corezzle/corezzle-can/releases/latest` adresine gider. Bu bölümü panele girmeden önce GitHub'da bir Release yayımlanmış olmalı (dosyalar: `Corezzle-CAN-Setup.exe`, `Corezzle-CAN-AppleSilicon.dmg`, `Corezzle-CAN-Intel.dmg`, `corezzle-can-linux-x64-<sürüm>.zip`). Release yoksa bağlantı boş sayfaya düşer. Release'i `.github/workflows/release.yml` üretir: `git tag v0.1.0 && git push github v0.1.0`, 10-15 dk sonra üç dosya Release'te.
 
 ## Tek dosya (gözden geçirme için)
 

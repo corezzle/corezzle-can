@@ -136,7 +136,7 @@ Uygulamayı ilk kez kuran biri için 10 dakikalık yol. Donanım yoksa 4. adımd
 
 - **Windows:** `Corezzle-CAN-Setup.exe` dosyasını çalıştırın. Windows "Windows protected your PC" (bilgisayarınız korundu) penceresi gösterirse *More info* → *Run anyway* deyin; uygulama yeni olduğu için bu uyarı çıkar. Kurulum birkaç saniyede kendiliğinden tamamlanır ve uygulama açılır; sonraki açılışlar Başlat menüsünden.
 
-- **macOS:** `Corezzle-CAN.dmg` dosyasını açın, Corezzle CAN simgesini Uygulamalar (Applications) klasörüne sürükleyin. İlk açılışta "Apple cannot check it for malicious software" uyarısı çıkarsa uygulamaya sağ tıklayıp *Aç* deyin. Yeni macOS sürümlerinde bu yetmezse *Sistem Ayarları → Gizlilik ve Güvenlik* sayfasının altındaki *Yine de Aç* düğmesine basın. Bir kez yeter.
+- **macOS:** İki dosya var: Apple Silicon (M1 ve sonrası) için `Corezzle-CAN-AppleSilicon.dmg`, Intel işlemcili Mac için `Corezzle-CAN-Intel.dmg`. Hangisi olduğunu  menüsü → *Bu Mac Hakkında* gösterir ("Çip: Apple M…" ya da "İşlemci: Intel…"). İnen dosyayı açın, Corezzle CAN simgesini Uygulamalar (Applications) klasörüne sürükleyin. İlk açılışta "Apple cannot check it for malicious software" uyarısı çıkarsa uygulamaya sağ tıklayıp *Aç* deyin. Yeni macOS sürümlerinde bu yetmezse *Sistem Ayarları → Gizlilik ve Güvenlik* sayfasının altındaki *Yine de Aç* düğmesine basın. Bir kez yeter.
 
 - **Linux:** `corezzle-can-linux-x64-<sürüm>.zip` dosyasını bir klasöre açın, içindeki `corezzle-can` dosyasını çalıştırın. Seri porta erişim için kullanıcınız `dialout` grubunda olmalı: `sudo usermod -aG dialout $USER`, sonra oturumu kapatıp açın.
 
@@ -548,7 +548,7 @@ Kartla konuşma tarayıcıların **Web Serial** arayüzüyle yapılır; Electron
 
 ## Kurulum paketi üretmek
 
-`npm run make` komutu `out/` klasörüne yazar: macOS için `Corezzle-CAN.dmg` ve zip, Windows için `Corezzle-CAN-Setup.exe`, Linux için zip. Paket hangi işletim sisteminde üretilirse o sistem için çıkar. macOS imzası ve notarizasyon yalnız ilgili ortam değişkenleri verilirse yapılır (`forge.config.js` başındaki açıklama); verilmezse paket imzasız çıkar ve ilk açılışta Gatekeeper uyarısı görünür. Sürüm yayımlamak için elle paketlemeye gerek yoktur: `package.json` içindeki `version` artırılıp `v0.1.0` gibi aynı numaralı bir etiket GitHub'a push edilince `.github/workflows/release.yml` iş akışı üç platformun paketini GitHub'ın makinelerinde üretir ve o etiketin *Release* sayfasına ekler. Hızlı başlangıç'taki indirme bağlantısı her zaman en son Release'e gider.
+`npm run make` komutu `out/` klasörüne yazar: macOS için `Corezzle-CAN.dmg` ve zip, Windows için `Corezzle-CAN-Setup.exe`, Linux için zip. Paket hangi işletim sisteminde üretilirse o sistem için, Mac'te de çalıştırıldığı işlemci mimarisi için çıkar (`--arch x64` ile Intel paketi). İki mimariyi tek dmg'de birleştiren `--arch universal` Electron'un imza dosyaları yüzünden çalışmaz; sürümde iki ayrı dmg vardır. macOS imzası ve notarizasyon yalnız ilgili ortam değişkenleri verilirse yapılır (`forge.config.js` başındaki açıklama); verilmezse paket imzasız çıkar ve ilk açılışta Gatekeeper uyarısı görünür. Sürüm yayımlamak için elle paketlemeye gerek yoktur: `package.json` içindeki `version` artırılıp `v0.1.0` gibi aynı numaralı bir etiket GitHub'a push edilince `.github/workflows/release.yml` iş akışı üç platformun paketini GitHub'ın makinelerinde üretir ve o etiketin *Release* sayfasına ekler. Hızlı başlangıç'taki indirme bağlantısı her zaman en son Release'e gider.
 
 ## Geliştirme notları
 
@@ -658,7 +658,7 @@ Download page: <a href="https://github.com/corezzle/corezzle-can/releases/latest
 
 - **Windows:** Run `Corezzle-CAN-Setup.exe`. If Windows shows "Windows protected your PC", choose *More info* → *Run anyway*; the warning appears because the app is new. The installation completes by itself in a few seconds and the app opens; later launches are from the Start menu.
 
-- **macOS:** Open `Corezzle-CAN.dmg` and drag the Corezzle CAN icon into the Applications folder. If the first launch shows "Apple cannot check it for malicious software", right-click the app and choose *Open*. On recent macOS versions, if that is not enough, press *Open Anyway* at the bottom of *System Settings → Privacy & Security*. Once is enough.
+- **macOS:** There are two files: `Corezzle-CAN-AppleSilicon.dmg` for Apple Silicon (M1 and later) and `Corezzle-CAN-Intel.dmg` for Intel Macs. The  menu → *About This Mac* tells you which you have ("Chip: Apple M…" or "Processor: Intel…"). Open the downloaded file and drag the Corezzle CAN icon into the Applications folder. If the first launch shows "Apple cannot check it for malicious software", right-click the app and choose *Open*. On recent macOS versions, if that is not enough, press *Open Anyway* at the bottom of *System Settings → Privacy & Security*. Once is enough.
 
 - **Linux:** Unpack `corezzle-can-linux-x64-<version>.zip` into a folder and run the `corezzle-can` file inside. For serial port access your user must be in the `dialout` group: `sudo usermod -aG dialout $USER`, then log out and back in.
 
@@ -1072,7 +1072,7 @@ Talking to the board uses the browsers' **Web Serial** API; Electron provides it
 
 ## Building installers
 
-`npm run make` writes to the `out/` folder: `Corezzle-CAN.dmg` and a zip for macOS, `Corezzle-CAN-Setup.exe` for Windows, a zip for Linux. A package is produced for the operating system it is built on. macOS signing and notarisation happen only when the relevant environment variables are set (see the comment at the top of `forge.config.js`); otherwise the package is unsigned and Gatekeeper warns on first launch. Publishing a version needs no manual packaging: bump `version` in `package.json` and push a tag with the same number, such as `v0.1.0`, to GitHub; the `.github/workflows/release.yml` workflow builds the packages for all three platforms on GitHub's machines and attaches them to that tag's *Release* page. The download link in Quick start always points to the latest Release.
+`npm run make` writes to the `out/` folder: `Corezzle-CAN.dmg` and a zip for macOS, `Corezzle-CAN-Setup.exe` for Windows, a zip for Linux. A package is produced for the operating system it is built on, and on a Mac for the processor architecture it runs on (`--arch x64` for the Intel package). Merging both architectures into one dmg with `--arch universal` does not work because of Electron's signature files; the release carries two separate dmg files. macOS signing and notarisation happen only when the relevant environment variables are set (see the comment at the top of `forge.config.js`); otherwise the package is unsigned and Gatekeeper warns on first launch. Publishing a version needs no manual packaging: bump `version` in `package.json` and push a tag with the same number, such as `v0.1.0`, to GitHub; the `.github/workflows/release.yml` workflow builds the packages for all three platforms on GitHub's machines and attaches them to that tag's *Release* page. The download link in Quick start always points to the latest Release.
 
 ## Development notes
 

@@ -12,7 +12,7 @@ Download page: <a href="https://github.com/corezzle/corezzle-can/releases/latest
 
 - **Windows:** Run `Corezzle-CAN-Setup.exe`. If Windows shows "Windows protected your PC", choose *More info* → *Run anyway*; the warning appears because the app is new. The installation completes by itself in a few seconds and the app opens; later launches are from the Start menu.
 
-- **macOS:** Open `Corezzle-CAN.dmg` and drag the Corezzle CAN icon into the Applications folder. If the first launch shows "Apple cannot check it for malicious software", right-click the app and choose *Open*. On recent macOS versions, if that is not enough, press *Open Anyway* at the bottom of *System Settings → Privacy & Security*. Once is enough.
+- **macOS:** There are two files: `Corezzle-CAN-AppleSilicon.dmg` for Apple Silicon (M1 and later) and `Corezzle-CAN-Intel.dmg` for Intel Macs. The  menu → *About This Mac* tells you which you have ("Chip: Apple M…" or "Processor: Intel…"). Open the downloaded file and drag the Corezzle CAN icon into the Applications folder. If the first launch shows "Apple cannot check it for malicious software", right-click the app and choose *Open*. On recent macOS versions, if that is not enough, press *Open Anyway* at the bottom of *System Settings → Privacy & Security*. Once is enough.
 
 - **Linux:** Unpack `corezzle-can-linux-x64-<version>.zip` into a folder and run the `corezzle-can` file inside. For serial port access your user must be in the `dialout` group: `sudo usermod -aG dialout $USER`, then log out and back in.
 

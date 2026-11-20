@@ -36,7 +36,7 @@ queries with decoded values. The board stays in listen-only mode until you expli
 ## Kurulum ve çalıştırma
 
 **Hazır paket:** [Releases](https://github.com/corezzle/corezzle-can/releases/latest) sayfasından indirin. Windows `Corezzle-CAN-Setup.exe`
-(SmartScreen uyarısında *More info → Run anyway*), macOS `Corezzle-CAN.dmg` (Uygulamalar'a sürükleyin; ilk açılışta sağ tık → *Aç*),
+(SmartScreen uyarısında *More info → Run anyway*), macOS `Corezzle-CAN-AppleSilicon.dmg` ya da `Corezzle-CAN-Intel.dmg` (Uygulamalar'a sürükleyin; ilk açılışta sağ tık → *Aç*),
 Linux zip (açın, `corezzle-can` dosyasını çalıştırın; kullanıcı `dialout` grubunda olmalı). Adım adım anlatım: `docs/panel-icerik/04-hizli-baslangic.md`.
 
 **Kaynak koddan:** Node.js 18+ ve Git gerekir. Kart tarafı: NarRTOS `nar_esp32s3` derlemesi yüklü kart (`can stream` komutunu tanıyan sürüm).

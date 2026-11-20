@@ -6,9 +6,13 @@
 #   git push github v0.1.0
 #
 # Çıkan dosyalar (belgedeki adlarla aynı):
-#   Corezzle-CAN.dmg                      macOS, universal (Apple Silicon + Intel)
+#   Corezzle-CAN-AppleSilicon.dmg         macOS arm64 (M1 ve sonrası)
+#   Corezzle-CAN-Intel.dmg                macOS x64
 #   Corezzle-CAN-Setup.exe                Windows x64 kurulum
 #   corezzle-can-linux-x64-<sürüm>.zip    Linux x64
+#
+# Tek universal dmg denendi, @electron/universal "mach-o sayısı eşit değil" hatası verdi
+# (iki mimarinin _CodeSignature dosyaları farklı); bu yüzden iki ayrı dmg.
 #
 # İmza yok: macOS'ta Gatekeeper, Windows'ta SmartScreen uyarısı çıkar (belgede anlatılıyor).
 # Apple imzası için depo "Secrets" ayarlarına APPLE_DEVELOPER_IDENTITY vb. eklenip
@@ -32,14 +36,21 @@ jobs:
       matrix:
         include:
           - os: macos-latest
-            ad: macos
-            make_args: --arch universal
+            ad: macos-arm64
+            make_args: --arch arm64
+            dmg: Corezzle-CAN-AppleSilicon.dmg
+          - os: macos-latest
+            ad: macos-x64
+            make_args: --arch x64
+            dmg: Corezzle-CAN-Intel.dmg
           - os: windows-latest
             ad: windows
             make_args: ''
+            dmg: ''
           - os: ubuntu-latest
             ad: linux
             make_args: ''
+            dmg: ''
     steps:
       - uses: actions/checkout@v4
 
@@ -59,13 +70,15 @@ jobs:
 
       - name: Dosyaları adlandır
         shell: bash
+        env:
+          DMG_AD: ${{ matrix.dmg }}
         run: |
           set -e
           V=$(node -p "require('./package.json').version")
           mkdir -p dist
           case "$RUNNER_OS" in
             macOS)
-              cp "$(find out/make -name '*.dmg' | head -1)" "dist/Corezzle-CAN.dmg" ;;
+              cp "$(find out/make -name '*.dmg' | head -1)" "dist/$DMG_AD" ;;
             Windows)
               cp "$(find out/make -name 'Corezzle-CAN-Setup.exe' | head -1)" "dist/Corezzle-CAN-Setup.exe" ;;
             Linux)

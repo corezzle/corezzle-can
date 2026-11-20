@@ -35,7 +35,11 @@ queries with decoded values. The board stays in listen-only mode until you expli
 
 ## Kurulum ve çalıştırma
 
-Gerekenler: Node.js 18+, Git, NarRTOS `nar_esp32s3` derlemesi yüklü kart (`can stream` komutunu tanıyan sürüm).
+**Hazır paket:** [Releases](https://github.com/corezzle/corezzle-can/releases/latest) sayfasından indirin. Windows `Corezzle-CAN-Setup.exe`
+(SmartScreen uyarısında *More info → Run anyway*), macOS `Corezzle-CAN.dmg` (Uygulamalar'a sürükleyin; ilk açılışta sağ tık → *Aç*),
+Linux zip (açın, `corezzle-can` dosyasını çalıştırın; kullanıcı `dialout` grubunda olmalı). Adım adım anlatım: `docs/panel-icerik/04-hizli-baslangic.md`.
+
+**Kaynak koddan:** Node.js 18+ ve Git gerekir. Kart tarafı: NarRTOS `nar_esp32s3` derlemesi yüklü kart (`can stream` komutunu tanıyan sürüm).
 
 ```bash
 git clone https://github.com/corezzle/corezzle-can.git
@@ -51,7 +55,10 @@ gönderim kilidi, OBD çözümü ve kayıt dahil bütün akış demoda aynı ça
 Gerçek kart için **Karta bağlan** → listeden ESP32-S3 portunu seçin. Kart açılışı 30 saniye sürebilir; hazır olunca
 hız ve mod üstte görünür, Canlı sekmesinde frame'ler akar. Frame yoksa **Ayarlar → Hızı bul**.
 
-Kurulum paketi üretmek için: `npm run make` (macOS dmg/zip, Windows Setup.exe, Linux zip; `out/` altına yazar).
+Kurulum paketi üretmek için: `npm run make` (macOS dmg/zip, Windows Setup.exe, Linux zip; `out/` altına yazar; paket, üretildiği
+işletim sistemi için çıkar). Sürüm yayımlamak için `package.json` içindeki `version` artırılır, commit edilir ve aynı numarayla
+etiket push edilir (`git tag v0.1.0 && git push github v0.1.0`); `.github/workflows/release.yml` üç platformun paketini GitHub'da
+üretip o etiketin Release'ine ekler.
 
 Testler (donanımsız, protokol çözümleri): `npm test`.
 

@@ -13,7 +13,7 @@ Dosya: `panel-icerik/02-bu-uygulama-ne-yapar.md` · EN: `panel-icerik/en/02-what
 Dosya: `panel-icerik/03-temel-kavramlar.md` · EN: `panel-icerik/en/03-core-concepts.md` · 1835 karakter · 0 görsel
 
 ### 04. Hızlı başlangıç
-Dosya: `panel-icerik/04-hizli-baslangic.md` · EN: `panel-icerik/en/04-quick-start.md` · 2517 karakter · 1 görsel
+Dosya: `panel-icerik/04-hizli-baslangic.md` · EN: `panel-icerik/en/04-quick-start.md` · 4495 karakter · 1 görsel (indirme bağlantısı GitHub Releases'a gider; önce Release yayımlanmış olmalı, bkz. GIRIS-KILAVUZU)
 - `ekran-baslangic.png`: Açılış ekranı: Karta bağlan ve Demo düğmeleri
 
 ### 05. Donanım ve bağlantılar
@@ -48,7 +48,7 @@ Dosya: `panel-icerik/11-guvenlik-modeli-ve-sahada-ogrenilenler.md` · EN: `panel
 Dosya: `panel-icerik/12-demo-modu.md` · EN: `panel-icerik/en/12-demo-mode.md` · 1655 karakter · 0 görsel
 
 ### 13. Sorun giderme
-Dosya: `panel-icerik/13-sorun-giderme.md` · EN: `panel-icerik/en/13-troubleshooting.md` · 2322 karakter · 0 görsel
+Dosya: `panel-icerik/13-sorun-giderme.md` · EN: `panel-icerik/en/13-troubleshooting.md` · 2856 karakter · 0 görsel
 
 ### 14. Kaynak kod, testler ve lisans
-Dosya: `panel-icerik/14-kaynak-kod-testler-ve-lisans.md` · EN: `panel-icerik/en/14-source-code-tests-and-licence.md` · 1765 karakter · 0 görsel
+Dosya: `panel-icerik/14-kaynak-kod-testler-ve-lisans.md` · EN: `panel-icerik/en/14-source-code-tests-and-licence.md` · 2481 karakter · 0 görsel

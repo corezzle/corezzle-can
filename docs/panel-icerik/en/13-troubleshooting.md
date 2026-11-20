@@ -2,6 +2,8 @@ From symptom to cause. First look at the last `[cmd]` lines in the Console; the 
 
 | Symptom | Most likely cause | What to do |
 |---|---|---|
+| Windows: "Windows protected your PC" | The app is new, Windows does not know it | *More info* → *Run anyway*; the standard warning |
+| macOS: "cannot be opened because Apple cannot check it" | Unsigned app warning | Right-click the app → *Open*; if that fails, *System Settings → Privacy & Security → Open Anyway*. Once is enough |
 | Port not in the list | Charge-only cable; board open in another program; permissions on Linux | Change the cable; close the PlatformIO monitor; add the user to `dialout` |
 | "connecting… 30 s" takes long, then an error | Board boot self-tests; or old firmware that does not know `can stream` | Wait 40 s; type `help` in the Console, if `can stream` is missing update the board firmware |
 | Connected but Live empty, error counters 0 | Wrong bitrate **or** ignition off **or** a car with a gateway | Switch the ignition on; Settings → Find bitrate; try an OBD query |

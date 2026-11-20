@@ -1,6 +1,6 @@
 # Corezzle CAN — Wiki dökümanı (tam metin)
 
-Bu dosya `docs/panel-icerik/` altındaki 14 bölümün (TR) ve `en/` altındaki İngilizce karşılıklarının **tek dosyada birleştirilmiş** halidir; gözden geçirme için. Panele girilecek olan parça dosyalardır; bu dosya elle düzenlenmez, `node docs/wiki-html/birlestir.mjs` ile yeniden üretilir. Üretim: 2026-11-19.
+Bu dosya `docs/panel-icerik/` altındaki 14 bölümün (TR) ve `en/` altındaki İngilizce karşılıklarının **tek dosyada birleştirilmiş** halidir; gözden geçirme için. Panele girilecek olan parça dosyalardır; bu dosya elle düzenlenmez, `node docs/wiki-html/birlestir.mjs` ile yeniden üretilir. Üretim: 2026-11-20.
 
 Görseller: `gorseller/` (ekran görüntüleri demo modundan, arayüz metinleri İngilizce; bağlantı şeması İngilizce).
 
@@ -124,35 +124,68 @@ Belgede geçen terimlerin kısa karşılıkları. Zaten biliyorsanız atlayın.
 
 Uygulamayı ilk kez kuran biri için 10 dakikalık yol. Donanım yoksa 4. adımda **Demo** ile devam edilir; gerçek kart ve araç adımları sonraki bölümlerde.
 
-<div style="border-left:4px solid #12A0AD;background:rgba(18,160,173,.10);border-radius:0 10px 10px 0;padding:14px 18px;margin:18px 0"><div style="font-weight:800;margin-bottom:6px;color:inherit">Gerekenler</div><div style="line-height:1.6;color:inherit">Bilgisayarda <strong>Node.js 18 ya da üstü</strong> ve <strong>Git</strong>. Kart için: NarRTOS <code>nar_esp32s3</code> derlemesi yüklü NAR kartı (Konsol’da <code>help</code> yazınca listede <code>can stream</code> görünmeli) ve bir 3,3 V CAN alıcı-verici.</div></div>
+<div style="border-left:4px solid #12A0AD;background:rgba(18,160,173,.10);border-radius:0 10px 10px 0;padding:14px 18px;margin:18px 0"><div style="font-weight:800;margin-bottom:6px;color:inherit">Gerekenler</div><div style="line-height:1.6;color:inherit">Windows, macOS ya da Linux bilgisayar. Kart için: NarRTOS <code>nar_esp32s3</code> derlemesi yüklü NAR kartı (Konsol’da <code>help</code> yazınca listede <code>can stream</code> görünmeli), bir 3,3 V CAN alıcı-verici ve <strong>veri taşıyan</strong> bir USB kablosu. Node.js ve Git yalnız kaynak koddan çalıştıracaklar için gerekir.</div></div>
 
-1. **Kodu indirin ve kurun** (bir kez):
+## 1. Uygulamayı kurun
+
+İki yol var. Yalnız kullanacaksanız hazır paketi alın; kodu değiştirecekseniz kaynak koddan çalıştırın.
+
+### Hazır paket
+
+İndirme sayfası: <a href="https://github.com/corezzle/corezzle-can/releases/latest">github.com/corezzle/corezzle-can/releases</a>. İşletim sisteminize uygun dosyayı alın:
+
+- **Windows:** `Corezzle-CAN-Setup.exe` dosyasını çalıştırın. Windows "Windows protected your PC" (bilgisayarınız korundu) penceresi gösterirse *More info* → *Run anyway* deyin; uygulama yeni olduğu için bu uyarı çıkar. Kurulum birkaç saniyede kendiliğinden tamamlanır ve uygulama açılır; sonraki açılışlar Başlat menüsünden.
+
+- **macOS:** `Corezzle-CAN.dmg` dosyasını açın, Corezzle CAN simgesini Uygulamalar (Applications) klasörüne sürükleyin. İlk açılışta "Apple cannot check it for malicious software" uyarısı çıkarsa uygulamaya sağ tıklayıp *Aç* deyin. Yeni macOS sürümlerinde bu yetmezse *Sistem Ayarları → Gizlilik ve Güvenlik* sayfasının altındaki *Yine de Aç* düğmesine basın. Bir kez yeter.
+
+- **Linux:** `corezzle-can-linux-x64-<sürüm>.zip` dosyasını bir klasöre açın, içindeki `corezzle-can` dosyasını çalıştırın. Seri porta erişim için kullanıcınız `dialout` grubunda olmalı: `sudo usermod -aG dialout $USER`, sonra oturumu kapatıp açın.
+
+### Kaynak koddan
+
+Bilgisayarda Node.js 18 ya da üstü ve Git kurulu olmalı:
 
 ```
 git clone https://github.com/corezzle/corezzle-can.git
 cd corezzle-can
 npm install
+npm start
 ```
 
-2. **Çalıştırın:** `npm start`. Birkaç saniye sonra uygulama penceresi açılır.
+Son komut birkaç saniye sonra uygulama penceresini açar; sonraki seferlerde yalnız `npm start` yeter.
+
+## 2. Açılış
+
+Hangi yolla kurulmuş olursa olsun uygulama aynı ekranla açılır: üstte durum rozetleri, sağda **Karta bağlan** ve **Demo (sahte kart)**.
 
 ![Açılış ekranı: Karta bağlan ve Demo düğmeleri](gorseller/ekran-baslangic.png)
 
 <div style="font-size:12.5px;color:inherit;opacity:.72;text-align:center;margin:-6px 0 14px"><em>Açılış. Üstte durum rozetleri (bağlantı, hız, mod), sağda Karta bağlan ve Demo.</em></div>
 
-3. **Kartla:** kartı USB ile takın, **Karta bağlan** deyin, listeden ESP32-S3 portunu seçin. Kart yeni takıldıysa açılış 30 saniye sürebilir; hazır olunca üstte hız ve mod görünür.
+## 3. Kartla
 
-4. **Kartsız:** **Demo (sahte kart)** deyin. Yazılım içinde kartı taklit eden bir hat açılır; aşağıdaki adımların hepsi aynı çalışır.
+Kartı USB ile takın, **Karta bağlan** deyin, listeden ESP32-S3 portunu seçin (macOS'ta `usbmodem…`, Windows'ta `COM…`, Linux'ta `ttyACM…`). Kart yeni takıldıysa açılış 30 saniye sürebilir; hazır olunca üstte hız ve mod görünür.
 
-5. **Hızı bulun:** Ayarlar → **Hızı bul**. Yaklaşık 20 saniye sürer; sonuç "bulundu: 500 kbit/s" gibi görünür ve kalıcı yazılır.
+## 4. Kartsız
 
-6. **İzleyin:** Canlı sekmesine dönün. Mesajlar akıyorsa bağlantı doğrudur.
+**Demo (sahte kart)** deyin. Yazılım içinde kartı taklit eden bir hat açılır; aşağıdaki adımların hepsi aynı çalışır.
 
-7. **Sorun:** Gönder → **Gönderimi aç** → listeden *Motor devri* → **Sorgula**. Tabloya motor ünitesinin cevabı çözülmüş değerle düşer.
+## 5. Hızı bulun
+
+Ayarlar → **Hızı bul**. Yaklaşık 20 saniye sürer; sonuç "bulundu: 500 kbit/s" gibi görünür ve kalıcı yazılır.
+
+## 6. İzleyin
+
+Canlı sekmesine dönün. Mesajlar akıyorsa bağlantı doğrudur.
+
+## 7. Sorun
+
+Gönder → **Gönderimi aç** → listeden *Motor devri* → **Sorgula**. Tabloya motor ünitesinin cevabı çözülmüş değerle düşer.
 
 <div style="border-left:4px solid #D9922F;background:rgba(217,146,47,.12);border-radius:0 10px 10px 0;padding:14px 18px;margin:18px 0"><div style="font-weight:800;margin-bottom:6px;color:inherit">Araçta ilk denemede</div><div style="line-height:1.6;color:inherit">Kontak açık ya da motor çalışır olmalı; çoğu araç kontak kapalıyken hatta hiçbir şey konuşmaz. Hiç mesaj gelmiyorsa önce <strong>CANH/CANL ters mi</strong> ve <strong>GND bağlı mı</strong> diye bakın; bu ikisi ilk denemelerde en sık karşılaşılan sebeptir.</div></div>
 
-Kurulum paketi üretmek için: `npm run make` (macOS için dmg/zip, Windows için Setup.exe, Linux için zip; `out/` klasörüne yazar). Donanımsız testler: `npm test`.
+## Güncelleme
+
+Uygulama kendini güncellemez. Yeni sürüm çıkınca aynı indirme sayfasından yeni paketi alıp üstüne kurarsınız; kayıtlarınız silinmez. Kaynak koddan çalıştıranlar `git pull` ve `npm install` yapar.
 
 ---
 
@@ -469,6 +502,8 @@ Belirtiden sebebe. Önce Konsol'daki son `[cmd]` satırlarına bakın; çoğu so
 
 | Belirti | En olası sebep | Ne yapmalı |
 |---|---|---|
+| Windows: "Windows protected your PC" | Uygulama yeni, Windows tanımıyor | *More info* → *Run anyway*; standart uyarı |
+| macOS: "cannot be opened because Apple cannot check it" | İmzasız uygulama uyarısı | Uygulamaya sağ tık → *Aç*; olmazsa *Sistem Ayarları → Gizlilik ve Güvenlik → Yine de Aç*. Bir kez yeter |
 | Port listede yok | Yalnız şarj kablosu; kart başka programda açık; Linux'ta izin | Kabloyu değiştirin; PlatformIO monitörünü kapatın; `dialout` grubuna ekleyin |
 | "bağlanıyor… 30 sn" uzun sürüyor, sonra hata | Kart açılış testleri; ya da kartta `can stream` tanımayan eski yazılım | 40 sn bekleyin; Konsol'da `help` yazın, listede `can stream` yoksa kart yazılımını güncelleyin |
 | Bağlı ama Canlı boş, hata sayaçları 0 | Hız yanlış **ya da** kontak kapalı **ya da** gateway'li araç | Kontağı açın; Ayarlar → Hızı bul; OBD sorgusu deneyin |
@@ -510,6 +545,10 @@ Kartla konuşma tarayıcıların **Web Serial** arayüzüyle yapılır; Electron
 ## Testler
 
 `npm test` donanımsız çalışır: akış satırı ayrıştırma, `get can` çözümü, hız tarama çıktısı, OBD cevap çözümü (devir, hız, sıcaklık, olumsuz cevap), komutun ara bildirimde değil son `OK` ile bitmesi. On test.
+
+## Kurulum paketi üretmek
+
+`npm run make` komutu `out/` klasörüne yazar: macOS için `Corezzle-CAN.dmg` ve zip, Windows için `Corezzle-CAN-Setup.exe`, Linux için zip. Paket hangi işletim sisteminde üretilirse o sistem için çıkar. macOS imzası ve notarizasyon yalnız ilgili ortam değişkenleri verilirse yapılır (`forge.config.js` başındaki açıklama); verilmezse paket imzasız çıkar ve ilk açılışta Gatekeeper uyarısı görünür. Sürüm yayımlamak için elle paketlemeye gerek yoktur: `package.json` içindeki `version` artırılıp `v0.1.0` gibi aynı numaralı bir etiket GitHub'a push edilince `.github/workflows/release.yml` iş akışı üç platformun paketini GitHub'ın makinelerinde üretir ve o etiketin *Release* sayfasına ekler. Hızlı başlangıç'taki indirme bağlantısı her zaman en son Release'e gider.
 
 ## Geliştirme notları
 
@@ -607,35 +646,68 @@ Short definitions of the terms used in this document. Skip if you already know t
 
 A ten-minute path for someone installing the app for the first time. Without hardware, continue with **Demo** at step 4; the real board and vehicle steps are in the following sections.
 
-<div style="border-left:4px solid #12A0AD;background:rgba(18,160,173,.10);border-radius:0 10px 10px 0;padding:14px 18px;margin:18px 0"><div style="font-weight:800;margin-bottom:6px;color:inherit">Requirements</div><div style="line-height:1.6;color:inherit"><strong>Node.js 18 or newer</strong> and <strong>Git</strong> on the computer. For the board: a NAR board with the NarRTOS <code>nar_esp32s3</code> build (typing <code>help</code> in the Console must list <code>can stream</code>) and a 3.3 V CAN transceiver.</div></div>
+<div style="border-left:4px solid #12A0AD;background:rgba(18,160,173,.10);border-radius:0 10px 10px 0;padding:14px 18px;margin:18px 0"><div style="font-weight:800;margin-bottom:6px;color:inherit">Requirements</div><div style="line-height:1.6;color:inherit">A Windows, macOS or Linux computer. For the board: a NAR board with the NarRTOS <code>nar_esp32s3</code> build (typing <code>help</code> in the Console must list <code>can stream</code>), a 3.3 V CAN transceiver and a USB cable that <strong>carries data</strong>. Node.js and Git are needed only if you run from source.</div></div>
 
-1. **Download and install** (once):
+## 1. Install the app
+
+There are two ways. If you only want to use it, take the ready-made package; if you want to change the code, run from source.
+
+### Ready-made package
+
+Download page: <a href="https://github.com/corezzle/corezzle-can/releases/latest">github.com/corezzle/corezzle-can/releases</a>. Take the file for your operating system:
+
+- **Windows:** Run `Corezzle-CAN-Setup.exe`. If Windows shows "Windows protected your PC", choose *More info* → *Run anyway*; the warning appears because the app is new. The installation completes by itself in a few seconds and the app opens; later launches are from the Start menu.
+
+- **macOS:** Open `Corezzle-CAN.dmg` and drag the Corezzle CAN icon into the Applications folder. If the first launch shows "Apple cannot check it for malicious software", right-click the app and choose *Open*. On recent macOS versions, if that is not enough, press *Open Anyway* at the bottom of *System Settings → Privacy & Security*. Once is enough.
+
+- **Linux:** Unpack `corezzle-can-linux-x64-<version>.zip` into a folder and run the `corezzle-can` file inside. For serial port access your user must be in the `dialout` group: `sudo usermod -aG dialout $USER`, then log out and back in.
+
+### From source
+
+Node.js 18 or newer and Git must be installed on the computer:
 
 ```
 git clone https://github.com/corezzle/corezzle-can.git
 cd corezzle-can
 npm install
+npm start
 ```
 
-2. **Run:** `npm start`. The app window opens after a few seconds.
+The last command opens the app window after a few seconds; later, `npm start` alone is enough.
+
+## 2. Start screen
+
+However it was installed, the app opens with the same screen: status badges at the top, **Connect board** and **Demo (fake board)** on the right.
 
 ![Start screen: Connect board and Demo buttons](gorseller/ekran-baslangic.png)
 
 <div style="font-size:12.5px;color:inherit;opacity:.72;text-align:center;margin:-6px 0 14px"><em>Start screen. Status badges at the top (connection, bitrate, mode); Connect board and Demo on the right.</em></div>
 
-3. **With a board:** plug the board in over USB, click **Connect board**, pick the ESP32-S3 port from the list. If the board was just plugged in, boot can take 30 seconds; once ready, bitrate and mode appear at the top.
+## 3. With a board
 
-4. **Without a board:** click **Demo (fake board)**. A bus that imitates the board opens inside the software; all the steps below work the same way.
+Plug the board in over USB, click **Connect board**, pick the ESP32-S3 port from the list (`usbmodem…` on macOS, `COM…` on Windows, `ttyACM…` on Linux). If the board was just plugged in, boot can take 30 seconds; once ready, bitrate and mode appear at the top.
 
-5. **Find the bitrate:** Settings → **Find bitrate**. It takes about 20 seconds; the result reads like "found: 500 kbit/s" and is stored permanently.
+## 4. Without a board
 
-6. **Watch:** go back to the Live tab. If messages are flowing, the wiring is right.
+Click **Demo (fake board)**. A bus that imitates the board opens inside the software; all the steps below work the same way.
 
-7. **Query:** Send → **Enable transmission** → pick *Engine speed* from the list → **Query**. The engine unit's reply lands in the table with the decoded value.
+## 5. Find the bitrate
+
+Settings → **Find bitrate**. It takes about 20 seconds; the result reads like "found: 500 kbit/s" and is stored permanently.
+
+## 6. Watch
+
+Go back to the Live tab. If messages are flowing, the wiring is right.
+
+## 7. Query
+
+Send → **Enable transmission** → pick *Engine speed* from the list → **Query**. The engine unit's reply lands in the table with the decoded value.
 
 <div style="border-left:4px solid #D9922F;background:rgba(217,146,47,.12);border-radius:0 10px 10px 0;padding:14px 18px;margin:18px 0"><div style="font-weight:800;margin-bottom:6px;color:inherit">First try in a vehicle</div><div style="line-height:1.6;color:inherit">Ignition must be on or the engine running; most cars say nothing on the bus with the ignition off. If no messages arrive, first check whether <strong>CANH/CANL are swapped</strong> and whether <strong>GND is connected</strong>; these two are the most common causes on first attempts.</div></div>
 
-To build installers: `npm run make` (dmg/zip for macOS, Setup.exe for Windows, zip for Linux; written to `out/`). Hardware-free tests: `npm test`.
+## Updating
+
+The app does not update itself. When a new version is released, download the new package from the same page and install it over the old one; your recordings are kept. If you run from source, do `git pull` and `npm install`.
 
 ---
 
@@ -954,6 +1026,8 @@ From symptom to cause. First look at the last `[cmd]` lines in the Console; the 
 
 | Symptom | Most likely cause | What to do |
 |---|---|---|
+| Windows: "Windows protected your PC" | The app is new, Windows does not know it | *More info* → *Run anyway*; the standard warning |
+| macOS: "cannot be opened because Apple cannot check it" | Unsigned app warning | Right-click the app → *Open*; if that fails, *System Settings → Privacy & Security → Open Anyway*. Once is enough |
 | Port not in the list | Charge-only cable; board open in another program; permissions on Linux | Change the cable; close the PlatformIO monitor; add the user to `dialout` |
 | "connecting… 30 s" takes long, then an error | Board boot self-tests; or old firmware that does not know `can stream` | Wait 40 s; type `help` in the Console, if `can stream` is missing update the board firmware |
 | Connected but Live empty, error counters 0 | Wrong bitrate **or** ignition off **or** a car with a gateway | Switch the ignition on; Settings → Find bitrate; try an OBD query |
@@ -995,6 +1069,10 @@ Talking to the board uses the browsers' **Web Serial** API; Electron provides it
 ## Tests
 
 `npm test` runs without hardware: stream line parsing, `get can` decoding, bitrate scan output, OBD reply decoding (rpm, speed, temperature, negative response), and that a command ends on the final `OK` rather than an intermediate notice. Ten tests.
+
+## Building installers
+
+`npm run make` writes to the `out/` folder: `Corezzle-CAN.dmg` and a zip for macOS, `Corezzle-CAN-Setup.exe` for Windows, a zip for Linux. A package is produced for the operating system it is built on. macOS signing and notarisation happen only when the relevant environment variables are set (see the comment at the top of `forge.config.js`); otherwise the package is unsigned and Gatekeeper warns on first launch. Publishing a version needs no manual packaging: bump `version` in `package.json` and push a tag with the same number, such as `v0.1.0`, to GitHub; the `.github/workflows/release.yml` workflow builds the packages for all three platforms on GitHub's machines and attaches them to that tag's *Release* page. The download link in Quick start always points to the latest Release.
 
 ## Development notes
 

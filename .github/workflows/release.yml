@@ -1,0 +1,80 @@
+# Sürüm paketleri: v* biçiminde bir etiket push edilince macOS, Windows ve Linux paketlerini
+# GitHub'ın kendi makinelerinde üretir ve o etiketin Release'ine ekler.
+#
+# Kullanım (package.json içindeki version etiketle aynı olmalı):
+#   git tag v0.1.0
+#   git push github v0.1.0
+#
+# Çıkan dosyalar (belgedeki adlarla aynı):
+#   Corezzle-CAN.dmg                      macOS, universal (Apple Silicon + Intel)
+#   Corezzle-CAN-Setup.exe                Windows x64 kurulum
+#   corezzle-can-linux-x64-<sürüm>.zip    Linux x64
+#
+# İmza yok: macOS'ta Gatekeeper, Windows'ta SmartScreen uyarısı çıkar (belgede anlatılıyor).
+# Apple imzası için depo "Secrets" ayarlarına APPLE_DEVELOPER_IDENTITY vb. eklenip
+# aşağıdaki env bloğuna geçirilir; forge.config.js değişkenler yoksa imzasız paketler.
+
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  paket:
+    name: ${{ matrix.ad }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            ad: macos
+            make_args: --arch universal
+          - os: windows-latest
+            ad: windows
+            make_args: ''
+          - os: ubuntu-latest
+            ad: linux
+            make_args: ''
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Bağımlılıklar
+        run: npm ci
+
+      - name: Testler
+        run: npm test
+
+      - name: Paket üret
+        run: npm run make -- ${{ matrix.make_args }}
+
+      - name: Dosyaları adlandır
+        shell: bash
+        run: |
+          set -e
+          V=$(node -p "require('./package.json').version")
+          mkdir -p dist
+          case "$RUNNER_OS" in
+            macOS)
+              cp "$(find out/make -name '*.dmg' | head -1)" "dist/Corezzle-CAN.dmg" ;;
+            Windows)
+              cp "$(find out/make -name 'Corezzle-CAN-Setup.exe' | head -1)" "dist/Corezzle-CAN-Setup.exe" ;;
+            Linux)
+              cp "$(find out/make -name '*.zip' | head -1)" "dist/corezzle-can-linux-x64-$V.zip" ;;
+          esac
+          ls -la dist
+
+      - name: Release'e ekle
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true

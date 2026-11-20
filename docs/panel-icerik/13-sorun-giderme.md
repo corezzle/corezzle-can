@@ -2,6 +2,8 @@ Belirtiden sebebe. Önce Konsol'daki son `[cmd]` satırlarına bakın; çoğu so
 
 | Belirti | En olası sebep | Ne yapmalı |
 |---|---|---|
+| Windows: "Windows protected your PC" | Uygulama yeni, Windows tanımıyor | *More info* → *Run anyway*; standart uyarı |
+| macOS: "cannot be opened because Apple cannot check it" | İmzasız uygulama uyarısı | Uygulamaya sağ tık → *Aç*; olmazsa *Sistem Ayarları → Gizlilik ve Güvenlik → Yine de Aç*. Bir kez yeter |
 | Port listede yok | Yalnız şarj kablosu; kart başka programda açık; Linux'ta izin | Kabloyu değiştirin; PlatformIO monitörünü kapatın; `dialout` grubuna ekleyin |
 | "bağlanıyor… 30 sn" uzun sürüyor, sonra hata | Kart açılış testleri; ya da kartta `can stream` tanımayan eski yazılım | 40 sn bekleyin; Konsol'da `help` yazın, listede `can stream` yoksa kart yazılımını güncelleyin |
 | Bağlı ama Canlı boş, hata sayaçları 0 | Hız yanlış **ya da** kontak kapalı **ya da** gateway'li araç | Kontağı açın; Ayarlar → Hızı bul; OBD sorgusu deneyin |

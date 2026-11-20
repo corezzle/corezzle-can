@@ -22,6 +22,10 @@ Kartla konuşma tarayıcıların **Web Serial** arayüzüyle yapılır; Electron
 
 `npm test` donanımsız çalışır: akış satırı ayrıştırma, `get can` çözümü, hız tarama çıktısı, OBD cevap çözümü (devir, hız, sıcaklık, olumsuz cevap), komutun ara bildirimde değil son `OK` ile bitmesi. On test.
 
+## Kurulum paketi üretmek
+
+`npm run make` komutu `out/` klasörüne yazar: macOS için `Corezzle-CAN.dmg` ve zip, Windows için `Corezzle-CAN-Setup.exe`, Linux için zip. Paket hangi işletim sisteminde üretilirse o sistem için çıkar. macOS imzası ve notarizasyon yalnız ilgili ortam değişkenleri verilirse yapılır (`forge.config.js` başındaki açıklama); verilmezse paket imzasız çıkar ve ilk açılışta Gatekeeper uyarısı görünür. Sürüm yayımlamak için elle paketlemeye gerek yoktur: `package.json` içindeki `version` artırılıp `v0.1.0` gibi aynı numaralı bir etiket GitHub'a push edilince `.github/workflows/release.yml` iş akışı üç platformun paketini GitHub'ın makinelerinde üretir ve o etiketin *Release* sayfasına ekler. Hızlı başlangıç'taki indirme bağlantısı her zaman en son Release'e gider.
+
 ## Geliştirme notları
 
 - Yeni bir OBD PID eklemek: `obd.js` içindeki listeye bir satır (PID, ad, birim, çözüm fonksiyonu).

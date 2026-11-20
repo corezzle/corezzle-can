@@ -31,7 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: macos-14
+          - os: macos-latest
             ad: macos
             make_args: --arch universal
           - os: windows-latest

@@ -35,6 +35,11 @@
   }
   document.querySelectorAll('.sekmeler button').forEach(b => b.onclick = () => sekme(b.dataset.sekme));
 
+  /* ── güvenlik ve sorumluluk şeridi: bu kurulumda bir kez onaylanana kadar her açılışta görünür ── */
+  const SORUMLULUK_ANAHTAR = 'sorumluluk_onay_v1';
+  try { if (!localStorage.getItem(SORUMLULUK_ANAHTAR)) $('sorumluluk').hidden = false; } catch (_) { $('sorumluluk').hidden = false; }
+  $('b-sorumluluk-tamam').onclick = () => { try { localStorage.setItem(SORUMLULUK_ANAHTAR, new Date().toISOString()); } catch (_) {} $('sorumluluk').hidden = true; };
+
   /* ── bağlantı ────────────────────────────────────────────────── */
   API.seriListesi(liste => {
     const kap = $('seri-liste'); kap.innerHTML = '';

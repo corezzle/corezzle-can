@@ -8,6 +8,20 @@
 monitor: per-ID live table, raw stream, CSV recording, automatic bitrate detection, raw frame transmit and OBD-II
 queries with decoded values. The board stays in listen-only mode until you explicitly enable transmission.*
 
+## Güvenlik ve sorumluluk
+
+Kart, araca bağlıyken varsayılan olarak yalnız dinleme kipinde çalışacak biçimde tasarlanmıştır; bu kipte hatta sinyal göndermemesi amaçlanır.
+Yine de aracın elektronik sistemine takılan her cihaz bir risk taşır. Denemeleri yalnız **park hâlindeki, el freni çekili** bir araçta yapın;
+araç hareket hâlindeyken kartı bağlamayın, bağlantıyı değiştirmeyin ve bilgisayarla ilgilenmeyin. Uygulama ve kart kullanıcının kendi
+sorumluluğunda kullanılır; Corezzle Electronics araçta oluşabilecek arıza, hasar, veri kaybı ya da garanti kaybından sorumlu tutulamaz.
+Emin olmadığınız bir araçta önce Demo ile çalışın. Uygulama bu metni ilk açılışta gösterir ve Ayarlar sekmesinde her zaman tutar.
+
+*Safety and responsibility: when connected to a vehicle the board is designed to run in listen-only mode by default; in this mode it is
+intended not to send any signal onto the bus. Even so, any device attached to a vehicle's electronics carries a risk. Only experiment in a
+vehicle that is parked with the handbrake on; never connect the board, change the wiring or handle the computer while the vehicle is moving.
+The app and the board are used at the user's own responsibility; Corezzle Electronics cannot be held liable for any fault, damage, data loss
+or loss of warranty on the vehicle. If you are unsure about a vehicle, work with the Demo first.*
+
 ## Ne yapar
 
 | Sekme | İşlev |
@@ -91,8 +105,11 @@ test/test.js      protokol testleri (node)
 
 ## Belgeler
 
-Kullanım belgesi (bağlantı şeması, hız bulma, güvenlik kilidi, OBD-II, kayıt, sorun giderme; TR ve EN) `docs/panel-icerik/`
-altında bölüm bölüm durur; corezzle.com Wiki'sine bu bölümlerden girilir. Görseller `docs/panel-icerik/gorseller/`,
+İki belge var, ikisi de TR ve EN, corezzle.com Wiki'sine bölüm bölüm girilir:
+- **Kullanım kılavuzu** (`docs/panel-kilavuz/`, 9 bölüm): hiç görmemiş biri için indirme, kurulum, Demo, kartı bağlama, hız bulma, OBD-II, kayıt, sorun giderme. Wiki'de "Corezzle CAN".
+- **Teknik belge** (`docs/panel-icerik/`, 14 bölüm): kavramlar, bağlantı şeması, güvenlik modeli, kart komutları, kaynak kod. Wiki'de "NarRTOS - CAN".
+
+Teknik belgenin dosyaları Görseller `docs/panel-icerik/gorseller/`,
 üretim betikleri `docs/wiki-html/` (ekran görüntüleri: `ekran_al.mjs`, bağlantı şeması: `sema_uret.py`, bölüm metinleri: `bolumler_tr.py` / `bolumler_en.py`, tek dosya birleştirme: `birlestir.mjs`).
 Tamamı tek dosyada okumak için: [`docs/panel-icerik/Corezzle-CAN-Wiki.md`](docs/panel-icerik/Corezzle-CAN-Wiki.md) (ayrıca aynı adla `.html` ve `.pdf`).
 
